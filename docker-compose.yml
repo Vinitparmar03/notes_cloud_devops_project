@@ -1,0 +1,40 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_APP_API_URL: http://localhost:5000/api/v1
+
+    image: notes_frontend:latest
+
+    ports:
+      - "80:80"
+
+    depends_on:
+      - backend
+
+    container_name: frontend
+
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: ./backend
+
+    image: notes_backend:latest
+    
+    ports:
+      - "5000:5000"
+
+    environment:
+      AWS_REGION: ${AWS_REGION}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      JWT_SECRET: ${JWT_SECRET}
+      DYNAMODB_TABLE: ${DYNAMODB_TABLE}
+      USERS_TABLE: ${USERS_TABLE}
+      PORT: ${PORT}
+
+    container_name: backend
+
+    restart: unless-stopped
