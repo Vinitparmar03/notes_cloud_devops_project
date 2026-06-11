@@ -12,6 +12,7 @@ const Dashboard = () => {
     const fetchNotes = async () => {
         try {
             const response = await API.get("/notes");
+            console.log(response.data.notes.length);
             setNotes(response.data.notes);
         } catch (error) {
             console.log(error);
@@ -20,7 +21,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         fetchNotes();
-    }, [notes]);
+    }, []);
 
     const createNote = async (data) => {
         try {

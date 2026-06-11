@@ -66,7 +66,7 @@ const updateExistingNotes = async(req, res) =>{
         const note = await updateNote(req.user.userId, noteId, title, content);
         return res.status(200).json({
             success: true,
-            note: updated
+            note
         });
     }catch (error) {
         res.status(500).json({
